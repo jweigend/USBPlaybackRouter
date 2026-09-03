@@ -1,4 +1,4 @@
-# USB Playback Router
+# <img src="icons/usb-playback-router.svg" width="32" height="32" alt=""> USB Playback Router
 
 **Send Linux desktop audio to USB 1/2, 3/4, 5/6 … of a multichannel USB
 audio interface without opening a DAW or patch bay.**
@@ -18,9 +18,9 @@ Milestone 1. Two modes, same switching and state code:
   stereo routing sink with `pw-loopback`, makes it the default sink and links
   it to the chosen hardware pair. The node lives as long as the tray; the
   chosen pair is remembered per device and reapplied after a reconnect. The
-  previous default sink is restored on exit. Verified against a stereo card;
-  a test on a multichannel mixer is still open (the reference setup runs in
-  source mode).
+  previous default sink is restored on exit. Verified on the Mackie
+  ProFX16v3 with a measured test signal on all four channels, including a
+  simulated unplug/reconnect (card profile off and on).
 - **Source mode**: an existing loopback feeds the mixer and the tool only
   relinks it. Verified on the reference setup (Mackie ProFX16v3 with
   `50-rec-bus.conf`), where it replaced a device-specific predecessor.
@@ -90,6 +90,14 @@ to no pair or to more than one, and grey when the device or PipeWire is gone.
 State is always derived from the actual PipeWire links, never remembered, so
 switching with other tools (`pw-link`, a shell script) is reflected within
 milliseconds via `pw-dump -m`.
+
+## Tested hardware
+
+| Device | Profile | Channels | Pairs | Session mode | Source mode |
+|---|---|---|---|---|---|
+| Mackie ProFX16v3 | analog-surround-40 | 4 | 1/2, 3/4 | yes, measured | yes, in daily use |
+
+`usb-playback-router diag` output from other interfaces is welcome.
 
 ## Layout
 
