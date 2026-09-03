@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+- Session mode: a remembered pair is verified once after the routing node
+  starts, not on every graph change. A duplicated controller in `session.py`
+  had reapplied it every two seconds and reverted manual `pw-link` work.
+- Auto-detection only picks USB devices. A multichannel non-USB card (HDMI in
+  a surround profile) is no longer chosen when the mixer is absent; force it
+  with `[device] name` if wanted.
+
 ## 0.1.0 — 2026-09-03
 
 First release.

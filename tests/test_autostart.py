@@ -71,10 +71,6 @@ class ReapOrphansTest(unittest.TestCase):
             self.assertEqual(session.reap_orphans(), 0)
 
 
-if __name__ == "__main__":
-    unittest.main()
-
-
 class DoctorTest(unittest.TestCase):
     def test_tray_package_by_desktop(self):
         from usb_playback_router import doctor
@@ -95,3 +91,7 @@ class DoctorTest(unittest.TestCase):
         results = doctor.checks()
         self.assertEqual(len(results), 4)
         self.assertTrue(all(len(r) == 3 for r in results))
+
+
+if __name__ == "__main__":
+    unittest.main()

@@ -82,10 +82,11 @@ def find_devices(graph):
 
 def choose_device(devices, wanted=None):
     """Pick the device to manage. `wanted` matches device.name or node.name,
-    exactly or as substring. Without it, only a device with more than one
-    stereo pair qualifies (USB preferred): a plain stereo card is never chosen
-    automatically, so unplugging the mixer reads as offline instead of
-    silently moving desktop audio to the built-in card."""
+    exactly or as substring. Without it, only a USB device with more than one
+    stereo pair qualifies: a plain stereo card or a multichannel non-USB card
+    (an HDMI output in a surround profile, say) is never chosen automatically,
+    so a missing mixer reads as offline instead of silently moving desktop
+    audio elsewhere. Other cards can be forced with `[device] name`."""
     if wanted:
         for d in devices:
             if wanted in (d.id, d.node.name):
@@ -94,9 +95,8 @@ def choose_device(devices, wanted=None):
             if wanted in d.id or wanted in d.node.name or wanted in d.name:
                 return d
         return None
-    multi = [d for d in devices if len(d.pairs) > 1]
-    usb = [d for d in multi if d.bus == "usb"]
-    return (usb or multi or [None])[0]
+    usb = [d for d in devices if len(d.pairs) > 1 and d.bus == "usb"]
+    return usb[0] if usb else None
 
 
 def signal_ports(node):

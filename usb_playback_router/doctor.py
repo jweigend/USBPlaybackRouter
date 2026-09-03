@@ -48,7 +48,6 @@ def checks():
         result.append((True, "PyGObject", "python3-gi"))
     except ImportError:
         result.append((False, "PyGObject missing", "python3-gi"))
-        gi = None
     result.append((_typelib("Gtk", "3.0"), "GTK 3 bindings", "gir1.2-gtk-3.0"))
     xapp = _typelib("XApp", "1.0")
     appind = _typelib("AyatanaAppIndicator3", "0.1")

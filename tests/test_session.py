@@ -141,6 +141,8 @@ class ControllerTest(unittest.TestCase):
         self.assertTrue(self.c.observe(st2))
         self.assertEqual(self.selected, ["1/2"])
         self.assertFalse(self.c.observe(st2))                   # only once; manual work is respected
+        self.c.restart_after = 0                                # … also after the rate limit has passed
+        self.assertFalse(self.c.observe(st2))
         self.assertEqual(self.selected, ["1/2"])
 
     def test_device_gone_stops_node(self):

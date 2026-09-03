@@ -99,6 +99,16 @@ class DiscoveryTest(unittest.TestCase):
         self.assertIsNone(choose_device(devs))     # … but is not chosen automatically
         self.assertIsNotNone(choose_device(devs, "alsa_card.pci-0000_00_1b.0"))
 
+    def test_auto_choice_never_falls_back_to_a_non_usb_multichannel_card(self):
+        objs = objects()
+        for o in objs:                             # the mixer's card now looks like an HDMI output
+            if o["type"].endswith("Device") and "ProFx" in o["info"]["props"].get("device.name", ""):
+                o["info"]["props"]["device.bus"] = "pci"
+        devs = find_devices(Graph.from_objects(objs))
+        self.assertEqual([d.bus for d in devs if d.channels == 4], ["pci"])
+        self.assertIsNone(choose_device(devs))
+        self.assertIsNotNone(choose_device(devs, "alsa_card.usb-LOUD_Technologies_Inc._ProFx-00"))
+
     def test_auto_choice_is_pinned_for_the_process(self):
         b = backend(device="")
         self.assertEqual(b.read(Graph.from_objects(objects())).device.id,
