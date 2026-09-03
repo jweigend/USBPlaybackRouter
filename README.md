@@ -10,6 +10,8 @@ more than one stereo return pair from the computer. Linux shows them as one
 "Surround 4.0" device and plays everything to the first pair. This tray icon
 shows which pair desktop audio reaches and switches it with one click.
 
+<p align="center"><img src="screenshot.png" width="490" alt="Tray menu: desktop audio on USB 3/4, one click to switch to USB 1/2"></p>
+
 Concept and design: [usb-playback-router-concept.md](usb-playback-router-concept.md).
 
 ## Status
