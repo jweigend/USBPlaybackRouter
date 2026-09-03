@@ -73,3 +73,25 @@ class ReapOrphansTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class DoctorTest(unittest.TestCase):
+    def test_tray_package_by_desktop(self):
+        from usb_playback_router import doctor
+        self.assertEqual(doctor.tray_package("X-Cinnamon"), "gir1.2-xapp-1.0")
+        self.assertEqual(doctor.tray_package("GNOME"), "gir1.2-ayatanaappindicator3-0.1")
+        self.assertEqual(doctor.tray_package(""), "gir1.2-ayatanaappindicator3-0.1")
+
+    def test_apt_line_lists_only_missing(self):
+        from usb_playback_router import doctor
+        results = [(True, "a", "pipewire-bin"), (False, "b", "python3-gi"), (False, "c", None),
+                   (False, "d", "gir1.2-gtk-3.0")]
+        with mock.patch.object(doctor.shutil, "which", return_value="/usr/bin/apt-get"):
+            self.assertEqual(doctor.apt_line(results), "sudo apt install python3-gi gir1.2-gtk-3.0")
+        self.assertEqual(doctor.apt_line([(True, "a", "x")]), "")
+
+    def test_checks_run_here(self):
+        from usb_playback_router import doctor
+        results = doctor.checks()
+        self.assertEqual(len(results), 4)
+        self.assertTrue(all(len(r) == 3 for r in results))

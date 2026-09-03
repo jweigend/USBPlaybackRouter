@@ -15,6 +15,7 @@ usage: {APP_ID} [command]
   select PAIR       switch desktop audio to PAIR, e.g. "3/4"
   pairs             list the detected stereo pairs of the managed device
   diag              print diagnostic information for bug reports
+  check             verify the system packages, print the apt command for missing ones
   autostart on|off  start the tray at login (also adds an application-menu entry)
   autostart status
   uninstall         remove the autostart and application-menu entries
@@ -66,6 +67,10 @@ def main(argv=None):
     if cmd == "diag":
         print(backend.diag())
         return 0
+
+    if cmd == "check":
+        from .doctor import report
+        return report()
 
     if cmd == "autostart":
         from . import autostart

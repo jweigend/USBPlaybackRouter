@@ -44,16 +44,27 @@ PipeWire 1.0.5 and WirePlumber 0.4.17 on Linux Mint 22.
 
 ## Installation
 
+From a checkout:
+
 ```bash
-sudo apt install pipewire-bin python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1
-pipx install git+https://github.com/jweigend/USBPlaybackRouter
-usb-playback-router autostart on      # tray at login + application-menu entry
-usb-playback-router &                 # start it now
+./install.sh          # checks the packages, symlinks into ~/.local/bin, enables autostart
+usb-playback-router & # start it now
 ```
 
-`pipx` must see the system GTK bindings; if the tray complains about
-missing `gi`, use `pipx install --system-site-packages …`. From a checkout,
-`./install.sh` does the same with a symlink instead of pipx.
+Without a checkout:
+
+```bash
+pipx install git+https://github.com/jweigend/USBPlaybackRouter
+usb-playback-router check          # lists missing system packages with the apt command
+usb-playback-router autostart on   # tray at login + application-menu entry
+usb-playback-router &
+```
+
+Nothing is installed with root. `check` names the packages that are missing
+(`pipewire-bin`, `python3-gi`, `gir1.2-gtk-3.0`, and `gir1.2-xapp-1.0` on
+Cinnamon or `gir1.2-ayatanaappindicator3-0.1` elsewhere) and prints the
+`apt` line for them. `pipx` must see the system GTK bindings; if the tray
+complains about missing `gi`, use `pipx install --system-site-packages …`.
 
 ## Configuration
 
@@ -97,6 +108,7 @@ node.
 ./usb-playback-router select 3/4
 ./usb-playback-router pairs
 ./usb-playback-router diag          # for bug reports
+./usb-playback-router check         # system packages present?
 ./usb-playback-router autostart on|off|status
 ./usb-playback-router uninstall     # remove the desktop entries
 ```
@@ -125,7 +137,7 @@ milliseconds via `pw-dump -m`.
 | `usb_playback_router/config.py`, `devices.toml` | user config, device labels and hints |
 | `usb_playback_router/session.py`, `state.py` | session mode: `pw-loopback` node, default sink, remembered pair |
 | `usb_playback_router/monitor.py` | `pw-dump -m` change trigger |
-| `usb_playback_router/tray.py`, `cli.py`, `autostart.py` | UI, command line, desktop entries |
+| `usb_playback_router/tray.py`, `cli.py`, `autostart.py`, `doctor.py` | UI, command line, desktop entries, package check |
 | `tests/` | unit tests against a real `pw-dump` of the reference setup |
 
 ```bash
