@@ -1,0 +1,2490 @@
+[
+ {
+  "id": 30,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 0,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "clock.id": "monotonic",
+    "clock.name": "clock.system.monotonic",
+    "clock.quantum-limit": 8192,
+    "factory.id": 10,
+    "factory.name": "support.node.driver",
+    "node.driver": true,
+    "node.group": "pipewire.dummy",
+    "node.name": "Dummy-Driver",
+    "object.id": 30,
+    "object.serial": 30,
+    "priority.driver": 20000
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 31,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 0,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "clock.id": "monotonic",
+    "clock.name": "clock.system.monotonic",
+    "clock.quantum-limit": 8192,
+    "factory.id": 10,
+    "factory.name": "support.node.driver",
+    "node.driver": true,
+    "node.freewheel": true,
+    "node.group": "pipewire.freewheel",
+    "node.name": "Freewheel-Driver",
+    "object.id": 31,
+    "object.serial": 31,
+    "priority.driver": 19000
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 32,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 65,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 2,
+   "n-output-ports": 2,
+   "state": "running",
+   "error": null,
+   "props": {
+    "audio.adapt.follower": "",
+    "audio.position": "[ FL FR ]",
+    "clock.quantum-limit": 8192,
+    "factory.id": 18,
+    "factory.mode": "merge",
+    "factory.name": "support.null-audio-sink",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Sink",
+    "monitor.channel-volumes": true,
+    "node.description": "Rec-Bus (Konsum-Audio \u2192 REAPER)",
+    "node.driver": true,
+    "node.name": "rec-bus",
+    "object.id": 32,
+    "object.serial": 32
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "raw",
+      "format": "F32P",
+      "rate": 48000,
+      "channels": 2,
+      "position": [
+       "FL",
+       "FR"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 33,
+  "type": "PipeWire:Interface:Metadata",
+  "info": {
+   "params": {}
+  },
+  "props": {
+   "metadata.name": "settings",
+   "object.serial": 33
+  },
+  "metadata": [
+   {
+    "subject": 0,
+    "key": "log.level",
+    "type": "",
+    "value": 2
+   },
+   {
+    "subject": 0,
+    "key": "clock.rate",
+    "type": "",
+    "value": 48000
+   },
+   {
+    "subject": 0,
+    "key": "clock.allowed-rates",
+    "type": "",
+    "value": "[ 48000 ]"
+   },
+   {
+    "subject": 0,
+    "key": "clock.quantum",
+    "type": "",
+    "value": 1024
+   },
+   {
+    "subject": 0,
+    "key": "clock.min-quantum",
+    "type": "",
+    "value": 32
+   },
+   {
+    "subject": 0,
+    "key": "clock.max-quantum",
+    "type": "",
+    "value": 2048
+   },
+   {
+    "subject": 0,
+    "key": "clock.force-quantum",
+    "type": "",
+    "value": 0
+   },
+   {
+    "subject": 0,
+    "key": "clock.force-rate",
+    "type": "",
+    "value": 0
+   }
+  ]
+ },
+ {
+  "id": 36,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 65,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 4,
+   "state": "running",
+   "error": null,
+   "props": {
+    "adapt.follower.spa-node": "",
+    "audio.adapt.follower": "",
+    "audio.position": "[ RL RR ]",
+    "client.id": 35,
+    "clock.quantum-limit": 8192,
+    "factory.id": 18,
+    "factory.mode": "split",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Stream/Output/Audio",
+    "media.name": "Rec-Bus Abhoere output",
+    "node.autoconnect": true,
+    "node.description": "Rec-Bus Abhoere",
+    "node.group": "loopback-1490-29",
+    "node.link-group": "loopback-1490-29",
+    "node.name": "rec-bus-abhoere-out",
+    "node.passive": true,
+    "node.target": "alsa_output.usb-LOUD_Technologies_Inc._ProFx-00.analog-surround-40",
+    "node.trigger": true,
+    "node.virtual": true,
+    "node.want-driver": true,
+    "object.id": 36,
+    "object.register": false,
+    "object.serial": 36,
+    "resample.disable": true,
+    "resample.prefill": true,
+    "stream.is-live": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "raw",
+      "format": "F32P",
+      "channels": 2,
+      "position": [
+       "RL",
+       "RR"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 37,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 65,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 2,
+   "n-output-ports": 2,
+   "state": "running",
+   "error": null,
+   "props": {
+    "adapt.follower.spa-node": "",
+    "audio.adapt.follower": "",
+    "audio.position": "[ FL FR ]",
+    "client.id": 35,
+    "clock.quantum-limit": 8192,
+    "factory.id": 18,
+    "factory.mode": "merge",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Stream/Input/Audio",
+    "media.name": "Rec-Bus Abhoere input",
+    "node.autoconnect": true,
+    "node.description": "Rec-Bus Abhoere",
+    "node.group": "loopback-1490-29",
+    "node.link-group": "loopback-1490-29",
+    "node.name": "rec-bus-abhoere-in",
+    "node.target": "rec-bus",
+    "node.virtual": true,
+    "node.want-driver": true,
+    "object.id": 37,
+    "object.register": false,
+    "object.serial": 37,
+    "resample.disable": true,
+    "resample.prefill": true,
+    "stream.capture.sink": true,
+    "stream.is-live": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "raw",
+      "format": "F32P",
+      "channels": 2,
+      "position": [
+       "FL",
+       "FR"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 40,
+  "type": "PipeWire:Interface:Metadata",
+  "info": {
+   "params": {}
+  },
+  "props": {
+   "client.id": 38,
+   "factory.id": 6,
+   "metadata.name": "default",
+   "module.id": 5,
+   "object.serial": 40
+  },
+  "metadata": [
+   {
+    "subject": 0,
+    "key": "default.configured.audio.sink",
+    "type": "Spa:String:JSON",
+    "value": {
+     "name": "rec-bus"
+    }
+   },
+   {
+    "subject": 0,
+    "key": "default.configured.audio.source",
+    "type": "Spa:String:JSON",
+    "value": {
+     "name": "alsa_output.pci-0000_00_1b.0.analog-stereo"
+    }
+   },
+   {
+    "subject": 0,
+    "key": "default.audio.sink",
+    "type": "Spa:String:JSON",
+    "value": {
+     "name": "rec-bus"
+    }
+   },
+   {
+    "subject": 0,
+    "key": "default.audio.source",
+    "type": "Spa:String:JSON",
+    "value": {
+     "name": "alsa_output.pci-0000_00_1b.0.analog-stereo"
+    }
+   },
+   {
+    "subject": 0,
+    "key": "default.video.source",
+    "type": "Spa:String:JSON",
+    "value": {
+     "name": "v4l2_input.pci-0000_00_1d.0-usb-0_1.6_1.0"
+    }
+   }
+  ]
+ },
+ {
+  "id": 41,
+  "type": "PipeWire:Interface:Metadata",
+  "info": {
+   "params": {}
+  },
+  "props": {
+   "client.id": 38,
+   "factory.id": 6,
+   "metadata.name": "route-settings",
+   "module.id": 5,
+   "object.serial": 41
+  },
+  "metadata": [
+   {
+    "subject": 0,
+    "key": "restore.stream.Output/Audio.media.role:Notification",
+    "type": "Spa:String:JSON",
+    "value": {
+     "channels": [
+      "FL",
+      "FR"
+     ],
+     "mute": false,
+     "volume": 1.0,
+     "volumes": [
+      1.0,
+      1.0
+     ]
+    }
+   }
+  ]
+ },
+ {
+  "id": 43,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 256,
+   "max-output-ports": 256,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 1,
+   "n-output-ports": 1,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "factory.id": 10,
+    "factory.name": "api.alsa.seq.bridge",
+    "media.class": "Midi/Bridge",
+    "node.driver": true,
+    "node.name": "Midi-Bridge",
+    "object.id": 43,
+    "object.serial": 43,
+    "priority.driver": 1,
+    "priority.session": 100
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 44,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "format.dsp": "8 bit raw midi",
+    "node.id": 43,
+    "object.id": 44,
+    "object.path": "alsa:seq:default:client_14:playback_0",
+    "object.serial": 44,
+    "port.alias": "Midi Through:Midi Through Port-0",
+    "port.direction": "in",
+    "port.id": 0,
+    "port.name": "Midi Through:(playback_0) Midi Through Port-0",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 45,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "format.dsp": "8 bit raw midi",
+    "node.id": 43,
+    "object.id": 45,
+    "object.path": "alsa:seq:default:client_14:capture_0",
+    "object.serial": 45,
+    "port.alias": "Midi Through:Midi Through Port-0",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "Midi Through:(capture_0) Midi Through Port-0",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 55,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 32,
+    "object.id": 55,
+    "object.path": "rec-bus:playback_0",
+    "object.serial": 55,
+    "port.alias": "Rec-Bus (Konsum-Audio \u2192 REAPER):playback_FL",
+    "port.direction": "in",
+    "port.id": 0,
+    "port.name": "playback_FL"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 56,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 32,
+    "object.id": 56,
+    "object.path": "rec-bus:monitor_0",
+    "object.serial": 56,
+    "port.alias": "Rec-Bus (Konsum-Audio \u2192 REAPER):monitor_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.monitor": true,
+    "port.name": "monitor_FL"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 57,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 32,
+    "object.id": 57,
+    "object.path": "rec-bus:playback_1",
+    "object.serial": 57,
+    "port.alias": "Rec-Bus (Konsum-Audio \u2192 REAPER):playback_FR",
+    "port.direction": "in",
+    "port.id": 1,
+    "port.name": "playback_FR"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 58,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 32,
+    "object.id": 58,
+    "object.path": "rec-bus:monitor_1",
+    "object.serial": 58,
+    "port.alias": "Rec-Bus (Konsum-Audio \u2192 REAPER):monitor_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.monitor": true,
+    "port.name": "monitor_FR"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 64,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 37,
+    "object.id": 64,
+    "object.path": "rec-bus-abhoere-in:input_0",
+    "object.serial": 64,
+    "port.alias": "Rec-Bus Abhoere:input_FL",
+    "port.direction": "in",
+    "port.id": 0,
+    "port.name": "input_FL"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 65,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 37,
+    "object.id": 65,
+    "object.path": "rec-bus-abhoere-in:monitor_0",
+    "object.serial": 65,
+    "port.alias": "Rec-Bus Abhoere:monitor_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.monitor": true,
+    "port.name": "monitor_FL"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 66,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 37,
+    "object.id": 66,
+    "object.path": "rec-bus-abhoere-in:input_1",
+    "object.serial": 66,
+    "port.alias": "Rec-Bus Abhoere:input_FR",
+    "port.direction": "in",
+    "port.id": 1,
+    "port.name": "input_FR"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 67,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 37,
+    "object.id": 67,
+    "object.path": "rec-bus-abhoere-in:monitor_1",
+    "object.serial": 67,
+    "port.alias": "Rec-Bus Abhoere:monitor_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.monitor": true,
+    "port.name": "monitor_FR"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 76,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 32,
+   "output-port-id": 56,
+   "input-node-id": 37,
+   "input-port-id": 64,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 37,
+    "link.input.port": 64,
+    "link.output.node": 32,
+    "link.output.port": 56,
+    "object.id": 76,
+    "object.serial": 76
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 77,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 32,
+   "output-port-id": 58,
+   "input-node-id": 37,
+   "input-port-id": 66,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 37,
+    "link.input.port": 66,
+    "link.output.node": 32,
+    "link.output.port": 58,
+    "object.id": 77,
+    "object.serial": 77
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 48,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "api.v4l2.cap.bus_info": "usb-0000:00:1d.0-1.6",
+    "api.v4l2.cap.capabilities": "84a00001",
+    "api.v4l2.cap.card": "HD Pro Webcam C920",
+    "api.v4l2.cap.device-caps": 4200001,
+    "api.v4l2.cap.driver": "uvcvideo",
+    "api.v4l2.cap.version": "7.0.12",
+    "api.v4l2.path": "/dev/video0",
+    "client.id": 39,
+    "device.api": "v4l2",
+    "device.bus": "usb",
+    "device.bus-path": "pci-0000:00:1d.0-usb-0:1.6:1.0",
+    "device.capabilities": ":capture:",
+    "device.description": "HD Pro Webcam C920",
+    "device.devids": 20736,
+    "device.enum.api": "udev",
+    "device.name": "v4l2_device.pci-0000_00_1d.0-usb-0_1.6_1.0",
+    "device.plugged.usec": 14227928,
+    "device.product.id": "0x08e",
+    "device.product.name": "HD Pro Webcam C920",
+    "device.serial": "046d_HD_Pro_Webcam_C920_F6D23DCF",
+    "device.subsystem": "video4linux",
+    "device.sysfs.path": "/devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.6/2-1.6:1.0/video4linux/video0",
+    "device.vendor.id": "0x046",
+    "device.vendor.name": "046d",
+    "factory.id": 14,
+    "media.class": "Video/Device",
+    "object.id": 48,
+    "object.path": "v4l2:/dev/video0",
+    "object.serial": 139
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 53,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "api.v4l2.cap.bus_info": "usb-0000:00:1d.0-1.6",
+    "api.v4l2.cap.capabilities": "84a00001",
+    "api.v4l2.cap.card": "HD Pro Webcam C920",
+    "api.v4l2.cap.device-caps": "04a00000",
+    "api.v4l2.cap.driver": "uvcvideo",
+    "api.v4l2.cap.version": "7.0.12",
+    "api.v4l2.path": "/dev/video1",
+    "client.id": 39,
+    "device.api": "v4l2",
+    "device.bus": "usb",
+    "device.bus-path": "pci-0000:00:1d.0-usb-0:1.6:1.0",
+    "device.capabilities": ":",
+    "device.description": "HD Pro Webcam C920",
+    "device.devids": 20737,
+    "device.enum.api": "udev",
+    "device.name": "v4l2_device.pci-0000_00_1d.0-usb-0_1.6_1.0.2",
+    "device.plugged.usec": 14227964,
+    "device.product.id": "0x08e",
+    "device.product.name": "HD Pro Webcam C920",
+    "device.serial": "046d_HD_Pro_Webcam_C920_F6D23DCF",
+    "device.subsystem": "video4linux",
+    "device.sysfs.path": "/devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.6/2-1.6:1.0/video4linux/video1",
+    "device.vendor.id": "0x046",
+    "device.vendor.name": "046d",
+    "factory.id": 14,
+    "media.class": "Video/Device",
+    "object.id": 53,
+    "object.path": "v4l2:/dev/video1",
+    "object.serial": 140
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 54,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "alsa.card": 2,
+    "alsa.card_name": "HDA NVidia",
+    "alsa.components": "HDA:10de00a0,104389b8,00100100",
+    "alsa.driver_name": "snd_hda_intel",
+    "alsa.id": "NVidia",
+    "alsa.long_card_name": "HDA NVidia at 0xeb080000 irq 89",
+    "alsa.mixer_name": "Nvidia GPU a0 HDMI/DP",
+    "api.acp.auto-port": false,
+    "api.acp.auto-profile": false,
+    "api.alsa.card": 2,
+    "api.alsa.card.longname": "HDA NVidia at 0xeb080000 irq 89",
+    "api.alsa.card.name": "HDA NVidia",
+    "api.alsa.path": "hw:2",
+    "api.alsa.use-acp": true,
+    "api.dbus.ReserveDevice1": "Audio2",
+    "client.id": 39,
+    "device.api": "alsa",
+    "device.bus": "pci",
+    "device.bus-path": "pci-0000:41:00.1",
+    "device.description": "HDA NVidia",
+    "device.enum.api": "udev",
+    "device.icon-name": "audio-card-analog-pci",
+    "device.name": "alsa_card.pci-0000_41_00.1",
+    "device.nick": "HDA NVidia",
+    "device.plugged.usec": 14329466,
+    "device.product.id": "0x2291",
+    "device.string": 2,
+    "device.subsystem": "sound",
+    "device.sysfs.path": "/devices/pci0000:40/0000:40:02.0/0000:41:00.1/sound/card2",
+    "device.vendor.id": "0x10de",
+    "device.vendor.name": "NVIDIA Corporation",
+    "factory.id": 14,
+    "media.class": "Audio/Device",
+    "object.id": 54,
+    "object.path": "alsa:pcm:2",
+    "object.serial": 141
+   },
+   "params": {
+    "EnumProfile": [
+     {
+      "index": 0,
+      "name": "off",
+      "description": "Desligado"
+     },
+     {
+      "index": 1,
+      "name": "output:hdmi-stereo",
+      "description": "Sa\u00edda Est\u00e9reo digital (HDMI)"
+     },
+     {
+      "index": 2,
+      "name": "output:hdmi-stereo-extra1",
+      "description": "Sa\u00edda Digital Stereo (HDMI 2)"
+     },
+     {
+      "index": 3,
+      "name": "output:hdmi-stereo-extra2",
+      "description": "Sa\u00edda Digital Stereo (HDMI 3)"
+     },
+     {
+      "index": 4,
+      "name": "output:hdmi-stereo-extra3",
+      "description": "Sa\u00edda Digital Stereo (HDMI 4)"
+     },
+     {
+      "index": 5,
+      "name": "output:hdmi-surround",
+      "description": "Sa\u00edda Surround digital 5.1 (HDMI)"
+     },
+     {
+      "index": 6,
+      "name": "output:hdmi-surround71",
+      "description": "Sa\u00edda Digital Surround 7.1 (HDMI)"
+     },
+     {
+      "index": 7,
+      "name": "output:hdmi-surround-extra1",
+      "description": "Sa\u00edda Digital Surround 5.1 (HDMI 2)"
+     },
+     {
+      "index": 8,
+      "name": "output:hdmi-surround71-extra1",
+      "description": "Sa\u00edda Digital Surround 7.1 (HDMI 2)"
+     },
+     {
+      "index": 9,
+      "name": "output:hdmi-surround-extra2",
+      "description": "Sa\u00edda Digital Surround 5.1 (HDMI 3)"
+     },
+     {
+      "index": 10,
+      "name": "output:hdmi-surround71-extra2",
+      "description": "Sa\u00edda Digital Surround 7.1 (HDMI 3)"
+     },
+     {
+      "index": 11,
+      "name": "output:hdmi-surround-extra3",
+      "description": "Sa\u00edda Digital Surround 5.1 (HDMI 4)"
+     },
+     {
+      "index": 12,
+      "name": "output:hdmi-surround71-extra3",
+      "description": "Sa\u00edda Digital Surround 7.1 (HDMI 4)"
+     },
+     {
+      "index": 13,
+      "name": "pro-audio",
+      "description": "Pro Audio"
+     }
+    ],
+    "Profile": [
+     {
+      "index": 0,
+      "name": "off",
+      "description": "Desligado"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 47,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "alsa.card": 0,
+    "alsa.card_name": "HDA Intel PCH",
+    "alsa.components": "HDA:10ec0262,103c158b,00100202",
+    "alsa.driver_name": "snd_hda_intel",
+    "alsa.id": "PCH",
+    "alsa.long_card_name": "HDA Intel PCH at 0xeff40000 irq 90",
+    "alsa.mixer_name": "Realtek ALC262",
+    "api.acp.auto-port": false,
+    "api.acp.auto-profile": false,
+    "api.alsa.card": 0,
+    "api.alsa.card.longname": "HDA Intel PCH at 0xeff40000 irq 90",
+    "api.alsa.card.name": "HDA Intel PCH",
+    "api.alsa.path": "hw:0",
+    "api.alsa.use-acp": true,
+    "api.dbus.ReserveDevice1": "Audio0",
+    "client.id": 39,
+    "device.api": "alsa",
+    "device.bus": "pci",
+    "device.bus-path": "pci-0000:00:1b.0",
+    "device.description": "Built-in Audio",
+    "device.enum.api": "udev",
+    "device.form-factor": "internal",
+    "device.icon-name": "audio-card-analog-pci",
+    "device.name": "alsa_card.pci-0000_00_1b.0",
+    "device.nick": "HDA Intel PCH",
+    "device.plugged.usec": 14341700,
+    "device.product.id": "0x1d20",
+    "device.product.name": "C600/X79 series chipset High Definition Audio Controller",
+    "device.string": 0,
+    "device.subsystem": "sound",
+    "device.sysfs.path": "/devices/pci0000:00/0000:00:1b.0/sound/card0",
+    "device.vendor.id": "0x8086",
+    "device.vendor.name": "Intel Corporation",
+    "factory.id": 14,
+    "media.class": "Audio/Device",
+    "object.id": 47,
+    "object.path": "alsa:pcm:0",
+    "object.serial": 142
+   },
+   "params": {
+    "EnumProfile": [
+     {
+      "index": 0,
+      "name": "off",
+      "description": "Desligado"
+     },
+     {
+      "index": 1,
+      "name": "output:analog-stereo+input:analog-stereo",
+      "description": "Duplex est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 2,
+      "name": "output:analog-stereo",
+      "description": "Sa\u00edda Est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 3,
+      "name": "input:analog-stereo",
+      "description": "Entrada Est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 4,
+      "name": "pro-audio",
+      "description": "Pro Audio"
+     }
+    ],
+    "Profile": [
+     {
+      "index": 1,
+      "name": "output:analog-stereo+input:analog-stereo",
+      "description": "Duplex est\u00e9reo anal\u00f3gico"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 59,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "alsa.card": 1,
+    "alsa.card_name": "ProFx",
+    "alsa.components": "USB0a73:0023",
+    "alsa.driver_name": "snd_usb_audio",
+    "alsa.id": "ProFx",
+    "alsa.long_card_name": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "alsa.mixer_name": "USB Mixer",
+    "api.acp.auto-port": false,
+    "api.acp.auto-profile": false,
+    "api.alsa.card": 1,
+    "api.alsa.card.longname": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "api.alsa.card.name": "ProFx",
+    "api.alsa.path": "hw:1",
+    "api.alsa.use-acp": true,
+    "api.dbus.ReserveDevice1": "Audio1",
+    "client.id": 39,
+    "device.api": "alsa",
+    "device.bus": "usb",
+    "device.bus-id": "usb-LOUD_Technologies_Inc._ProFx-00",
+    "device.bus-path": "pci-0000:08:00.0-usb-0:2:1.0",
+    "device.description": "ProFx",
+    "device.enum.api": "udev",
+    "device.icon-name": "audio-card-analog-usb",
+    "device.name": "alsa_card.usb-LOUD_Technologies_Inc._ProFx-00",
+    "device.nick": "ProFx",
+    "device.plugged.usec": 14303351,
+    "device.product.id": "0x0023",
+    "device.product.name": "ProFx",
+    "device.serial": "LOUD_Technologies_Inc._ProFx",
+    "device.string": 1,
+    "device.subsystem": "sound",
+    "device.sysfs.path": "/devices/pci0000:00/0000:00:1c.6/0000:08:00.0/usb3/3-2/3-2:1.0/sound/card1",
+    "device.vendor.id": "0x0a73",
+    "device.vendor.name": "Mackie Designs",
+    "factory.id": 14,
+    "media.class": "Audio/Device",
+    "object.id": 59,
+    "object.path": "alsa:pcm:1",
+    "object.serial": 143
+   },
+   "params": {
+    "EnumProfile": [
+     {
+      "index": 0,
+      "name": "off",
+      "description": "Desligado"
+     },
+     {
+      "index": 1,
+      "name": "output:analog-surround-40+input:analog-stereo",
+      "description": "Sa\u00edda Surround anal\u00f3gico 4.0 + Entrada Est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 2,
+      "name": "output:analog-surround-40+input:iec958-stereo",
+      "description": "Sa\u00edda Surround anal\u00f3gico 4.0 + Entrada Est\u00e9reo digital (IEC958)"
+     },
+     {
+      "index": 3,
+      "name": "output:analog-surround-40",
+      "description": "Sa\u00edda Surround anal\u00f3gico 4.0"
+     },
+     {
+      "index": 4,
+      "name": "input:analog-stereo",
+      "description": "Entrada Est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 5,
+      "name": "input:iec958-stereo",
+      "description": "Entrada Est\u00e9reo digital (IEC958)"
+     },
+     {
+      "index": 6,
+      "name": "pro-audio",
+      "description": "Pro Audio"
+     }
+    ],
+    "Profile": [
+     {
+      "index": 1,
+      "name": "output:analog-surround-40+input:analog-stereo",
+      "description": "Sa\u00edda Surround anal\u00f3gico 4.0 + Entrada Est\u00e9reo anal\u00f3gico"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 73,
+  "type": "PipeWire:Interface:Device",
+  "info": {
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "alsa.card": 3,
+    "alsa.card_name": "HD Pro Webcam C920",
+    "alsa.components": "USB046d:08e5",
+    "alsa.driver_name": "snd_usb_audio",
+    "alsa.id": "C920",
+    "alsa.long_card_name": "HD Pro Webcam C920 at usb-0000:00:1d.0-1.6, high speed",
+    "alsa.mixer_name": "USB Mixer",
+    "api.acp.auto-port": false,
+    "api.acp.auto-profile": false,
+    "api.alsa.card": 3,
+    "api.alsa.card.longname": "HD Pro Webcam C920 at usb-0000:00:1d.0-1.6, high speed",
+    "api.alsa.card.name": "HD Pro Webcam C920",
+    "api.alsa.path": "hw:3",
+    "api.alsa.use-acp": true,
+    "api.dbus.ReserveDevice1": "Audio3",
+    "client.id": 39,
+    "device.api": "alsa",
+    "device.bus": "usb",
+    "device.bus-id": "usb-046d_HD_Pro_Webcam_C920_F6D23DCF-02",
+    "device.bus-path": "pci-0000:00:1d.0-usb-0:1.6:1.2",
+    "device.description": "C920 PRO HD Webcam",
+    "device.enum.api": "udev",
+    "device.form-factor": "webcam",
+    "device.icon-name": "camera-web-analog-usb",
+    "device.name": "alsa_card.usb-046d_HD_Pro_Webcam_C920_F6D23DCF-02",
+    "device.nick": "HD Pro Webcam C920",
+    "device.plugged.usec": 14559642,
+    "device.product.id": "0x08e5",
+    "device.product.name": "C920 PRO HD Webcam",
+    "device.serial": "046d_HD_Pro_Webcam_C920_F6D23DCF",
+    "device.string": 3,
+    "device.subsystem": "sound",
+    "device.sysfs.path": "/devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.6/2-1.6:1.2/sound/card3",
+    "device.vendor.id": "0x046d",
+    "device.vendor.name": "Logitech, Inc.",
+    "factory.id": 14,
+    "media.class": "Audio/Device",
+    "object.id": 73,
+    "object.path": "alsa:pcm:3",
+    "object.serial": 144
+   },
+   "params": {
+    "EnumProfile": [
+     {
+      "index": 0,
+      "name": "off",
+      "description": "Desligado"
+     },
+     {
+      "index": 1,
+      "name": "input:analog-stereo",
+      "description": "Entrada Est\u00e9reo anal\u00f3gico"
+     },
+     {
+      "index": 2,
+      "name": "input:iec958-stereo",
+      "description": "Entrada Est\u00e9reo digital (IEC958)"
+     },
+     {
+      "index": 3,
+      "name": "pro-audio",
+      "description": "Pro Audio"
+     }
+    ],
+    "Profile": [
+     {
+      "index": 1,
+      "name": "input:analog-stereo",
+      "description": "Entrada Est\u00e9reo anal\u00f3gico"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 71,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 1,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 1,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "api.v4l2.cap.bus_info": "usb-0000:00:1d.0-1.6",
+    "api.v4l2.cap.capabilities": "84a00001",
+    "api.v4l2.cap.card": "HD Pro Webcam C920",
+    "api.v4l2.cap.device-caps": 4200001,
+    "api.v4l2.cap.driver": "uvcvideo",
+    "api.v4l2.cap.version": "7.0.12",
+    "api.v4l2.path": "/dev/video0",
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "v4l2",
+    "device.devids": 20736,
+    "device.id": 48,
+    "device.product.id": "0x08e",
+    "device.vendor.id": "0x046",
+    "factory.id": 10,
+    "factory.name": "api.v4l2.source",
+    "media.class": "Video/Source",
+    "media.role": "Camera",
+    "node.description": "HD Pro Webcam C920 (V4L2)",
+    "node.driver": true,
+    "node.name": "v4l2_input.pci-0000_00_1d.0-usb-0_1.6_1.0",
+    "node.nick": "HD Pro Webcam C920",
+    "node.pause-on-idle": false,
+    "object.id": 71,
+    "object.path": "v4l2:/dev/video0",
+    "object.serial": 145,
+    "priority.session": 1000
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 72,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "node.id": 71,
+    "object.id": 72,
+    "object.path": "v4l2:/dev/video0:capture_0",
+    "object.serial": 146,
+    "port.alias": "HD Pro Webcam C920:capture_1",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "capture_1",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 70,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 65,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 2,
+   "n-output-ports": 2,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "alsa.card": 0,
+    "alsa.card_name": "HDA Intel PCH",
+    "alsa.class": "generic",
+    "alsa.components": "HDA:10ec0262,103c158b,00100202",
+    "alsa.device": 0,
+    "alsa.driver_name": "snd_hda_intel",
+    "alsa.id": "PCH",
+    "alsa.long_card_name": "HDA Intel PCH at 0xeff40000 irq 90",
+    "alsa.mixer_name": "Realtek ALC262",
+    "alsa.name": "ALC262 Analog",
+    "alsa.resolution_bits": 16,
+    "alsa.subclass": "generic-mix",
+    "alsa.subdevice": 0,
+    "alsa.subdevice_name": "subdevice #0",
+    "api.alsa.card.longname": "HDA Intel PCH at 0xeff40000 irq 90",
+    "api.alsa.card.name": "HDA Intel PCH",
+    "api.alsa.path": "front:0",
+    "api.alsa.pcm.card": 0,
+    "api.alsa.pcm.stream": "playback",
+    "audio.adapt.follower": "",
+    "audio.channels": 2,
+    "audio.position": "FL,FR",
+    "card.profile.device": 4,
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "device.class": "sound",
+    "device.id": 47,
+    "device.profile.description": "Est\u00e9reo anal\u00f3gico",
+    "device.profile.name": "analog-stereo",
+    "device.routes": 3,
+    "factory.id": 18,
+    "factory.mode": "merge",
+    "factory.name": "api.alsa.pcm.sink",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Sink",
+    "node.description": "Built-in Audio Est\u00e9reo anal\u00f3gico",
+    "node.driver": true,
+    "node.name": "alsa_output.pci-0000_00_1b.0.analog-stereo",
+    "node.nick": "ALC262 Analog",
+    "node.pause-on-idle": false,
+    "object.id": 70,
+    "object.path": "alsa:pcm:0:front:0:playback",
+    "object.serial": 147,
+    "priority.driver": 1009,
+    "priority.session": 1009
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 60,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 65,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 2,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "alsa.card": 0,
+    "alsa.card_name": "HDA Intel PCH",
+    "alsa.class": "generic",
+    "alsa.components": "HDA:10ec0262,103c158b,00100202",
+    "alsa.device": 0,
+    "alsa.driver_name": "snd_hda_intel",
+    "alsa.id": "PCH",
+    "alsa.long_card_name": "HDA Intel PCH at 0xeff40000 irq 90",
+    "alsa.mixer_name": "Realtek ALC262",
+    "alsa.name": "ALC262 Analog",
+    "alsa.resolution_bits": 16,
+    "alsa.subclass": "generic-mix",
+    "alsa.subdevice": 0,
+    "alsa.subdevice_name": "subdevice #0",
+    "api.alsa.card.longname": "HDA Intel PCH at 0xeff40000 irq 90",
+    "api.alsa.card.name": "HDA Intel PCH",
+    "api.alsa.path": "front:0",
+    "api.alsa.pcm.card": 0,
+    "api.alsa.pcm.stream": "capture",
+    "audio.adapt.follower": "",
+    "audio.channels": 2,
+    "audio.position": "FL,FR",
+    "card.profile.device": 0,
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "device.class": "sound",
+    "device.id": 47,
+    "device.profile.description": "Est\u00e9reo anal\u00f3gico",
+    "device.profile.name": "analog-stereo",
+    "device.routes": 3,
+    "factory.id": 18,
+    "factory.mode": "split",
+    "factory.name": "api.alsa.pcm.source",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Source",
+    "node.description": "Built-in Audio Est\u00e9reo anal\u00f3gico",
+    "node.driver": true,
+    "node.name": "alsa_input.pci-0000_00_1b.0.analog-stereo",
+    "node.nick": "ALC262 Analog",
+    "node.pause-on-idle": false,
+    "object.id": 60,
+    "object.path": "alsa:pcm:0:front:0:capture",
+    "object.serial": 148,
+    "priority.driver": 2009,
+    "priority.session": 2009
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 75,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 65,
+   "max-output-ports": 0,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 4,
+   "n-output-ports": 4,
+   "state": "running",
+   "error": null,
+   "props": {
+    "alsa.card": 1,
+    "alsa.card_name": "ProFx",
+    "alsa.class": "generic",
+    "alsa.components": "USB0a73:0023",
+    "alsa.device": 0,
+    "alsa.driver_name": "snd_usb_audio",
+    "alsa.id": "ProFx",
+    "alsa.long_card_name": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "alsa.mixer_name": "USB Mixer",
+    "alsa.name": "USB Audio",
+    "alsa.resolution_bits": 16,
+    "alsa.subclass": "generic-mix",
+    "alsa.subdevice": 0,
+    "alsa.subdevice_name": "subdevice #0",
+    "api.alsa.card.longname": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "api.alsa.card.name": "ProFx",
+    "api.alsa.headroom": 512,
+    "api.alsa.path": "surround40:1",
+    "api.alsa.pcm.card": 1,
+    "api.alsa.pcm.stream": "playback",
+    "api.alsa.period-num": 64,
+    "api.alsa.period-size": 512,
+    "audio.adapt.follower": "",
+    "audio.channels": 4,
+    "audio.position": "FL,FR,RL,RR",
+    "card.profile.device": 4,
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "device.class": "sound",
+    "device.id": 59,
+    "device.profile.description": "Surround anal\u00f3gico 4.0",
+    "device.profile.name": "analog-surround-40",
+    "device.routes": 1,
+    "factory.id": 18,
+    "factory.mode": "merge",
+    "factory.name": "api.alsa.pcm.sink",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Sink",
+    "node.description": "ProFx Surround anal\u00f3gico 4.0",
+    "node.driver": true,
+    "node.max-latency": "16384/48000",
+    "node.name": "alsa_output.usb-LOUD_Technologies_Inc._ProFx-00.analog-surround-40",
+    "node.nick": "ProFx",
+    "node.pause-on-idle": false,
+    "object.id": 75,
+    "object.path": "alsa:pcm:1:surround40:1:playback",
+    "object.serial": 149,
+    "priority.driver": 1009,
+    "priority.session": 1009
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "raw",
+      "format": "S32LE",
+      "rate": 48000,
+      "channels": 4,
+      "position": [
+       "FL",
+       "FR",
+       "RL",
+       "RR"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 74,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 65,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 2,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "alsa.card": 1,
+    "alsa.card_name": "ProFx",
+    "alsa.class": "generic",
+    "alsa.components": "USB0a73:0023",
+    "alsa.device": 0,
+    "alsa.driver_name": "snd_usb_audio",
+    "alsa.id": "ProFx",
+    "alsa.long_card_name": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "alsa.mixer_name": "USB Mixer",
+    "alsa.name": "USB Audio",
+    "alsa.resolution_bits": 32,
+    "alsa.subclass": "generic-mix",
+    "alsa.subdevice": 0,
+    "alsa.subdevice_name": "subdevice #0",
+    "api.alsa.card.longname": "LOUD Technologies Inc. ProFx at usb-0000:08:00.0-2, high speed",
+    "api.alsa.card.name": "ProFx",
+    "api.alsa.path": "front:1",
+    "api.alsa.pcm.card": 1,
+    "api.alsa.pcm.stream": "capture",
+    "audio.adapt.follower": "",
+    "audio.channels": 2,
+    "audio.position": "FL,FR",
+    "card.profile.device": 0,
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "device.class": "sound",
+    "device.id": 59,
+    "device.profile.description": "Est\u00e9reo anal\u00f3gico",
+    "device.profile.name": "analog-stereo",
+    "device.routes": 1,
+    "factory.id": 18,
+    "factory.mode": "split",
+    "factory.name": "api.alsa.pcm.source",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Source",
+    "node.description": "ProFx Est\u00e9reo anal\u00f3gico",
+    "node.driver": true,
+    "node.name": "alsa_input.usb-LOUD_Technologies_Inc._ProFx-00.analog-stereo",
+    "node.nick": "ProFx",
+    "node.pause-on-idle": false,
+    "object.id": 74,
+    "object.path": "alsa:pcm:1:front:1:capture",
+    "object.serial": 150,
+    "priority.driver": 2009,
+    "priority.session": 2009
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 49,
+  "type": "PipeWire:Interface:Node",
+  "info": {
+   "max-input-ports": 0,
+   "max-output-ports": 65,
+   "change-mask": [
+    "input-ports",
+    "output-ports",
+    "state",
+    "props",
+    "params"
+   ],
+   "n-input-ports": 0,
+   "n-output-ports": 2,
+   "state": "suspended",
+   "error": null,
+   "props": {
+    "alsa.card": 3,
+    "alsa.card_name": "HD Pro Webcam C920",
+    "alsa.class": "generic",
+    "alsa.components": "USB046d:08e5",
+    "alsa.device": 0,
+    "alsa.driver_name": "snd_usb_audio",
+    "alsa.id": "C920",
+    "alsa.long_card_name": "HD Pro Webcam C920 at usb-0000:00:1d.0-1.6, high speed",
+    "alsa.mixer_name": "USB Mixer",
+    "alsa.name": "USB Audio",
+    "alsa.resolution_bits": 16,
+    "alsa.subclass": "generic-mix",
+    "alsa.subdevice": 0,
+    "alsa.subdevice_name": "subdevice #0",
+    "api.alsa.card.longname": "HD Pro Webcam C920 at usb-0000:00:1d.0-1.6, high speed",
+    "api.alsa.card.name": "HD Pro Webcam C920",
+    "api.alsa.path": "front:3",
+    "api.alsa.pcm.card": 3,
+    "api.alsa.pcm.stream": "capture",
+    "audio.adapt.follower": "",
+    "audio.channels": 2,
+    "audio.position": "FL,FR",
+    "card.profile.device": 0,
+    "client.id": 39,
+    "clock.quantum-limit": 8192,
+    "device.api": "alsa",
+    "device.class": "sound",
+    "device.id": 73,
+    "device.profile.description": "Est\u00e9reo anal\u00f3gico",
+    "device.profile.name": "analog-stereo",
+    "device.routes": 1,
+    "factory.id": 18,
+    "factory.mode": "split",
+    "factory.name": "api.alsa.pcm.source",
+    "library.name": "audioconvert/libspa-audioconvert",
+    "media.class": "Audio/Source",
+    "node.description": "C920 PRO HD Webcam Est\u00e9reo anal\u00f3gico",
+    "node.driver": true,
+    "node.name": "alsa_input.usb-046d_HD_Pro_Webcam_C920_F6D23DCF-02.analog-stereo",
+    "node.nick": "HD Pro Webcam C920",
+    "node.pause-on-idle": false,
+    "object.id": 49,
+    "object.path": "alsa:pcm:3:front:3:capture",
+    "object.serial": 151,
+    "priority.driver": 2009,
+    "priority.session": 2009
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 52,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 70,
+    "object.id": 52,
+    "object.path": "alsa:pcm:0:front:0:playback:playback_0",
+    "object.serial": 152,
+    "port.alias": "ALC262 Analog:playback_FL",
+    "port.direction": "in",
+    "port.id": 0,
+    "port.name": "playback_FL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 63,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 70,
+    "object.id": 63,
+    "object.path": "alsa:pcm:0:front:0:playback:monitor_0",
+    "object.serial": 153,
+    "port.alias": "ALC262 Analog:monitor_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.monitor": true,
+    "port.name": "monitor_FL"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 81,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 70,
+    "object.id": 81,
+    "object.path": "alsa:pcm:0:front:0:playback:playback_1",
+    "object.serial": 154,
+    "port.alias": "ALC262 Analog:playback_FR",
+    "port.direction": "in",
+    "port.id": 1,
+    "port.name": "playback_FR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 80,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 70,
+    "object.id": 80,
+    "object.path": "alsa:pcm:0:front:0:playback:monitor_1",
+    "object.serial": 155,
+    "port.alias": "ALC262 Analog:monitor_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.monitor": true,
+    "port.name": "monitor_FR"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 51,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 60,
+    "object.id": 51,
+    "object.path": "alsa:pcm:0:front:0:capture:capture_0",
+    "object.serial": 156,
+    "port.alias": "ALC262 Analog:capture_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "capture_FL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 61,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 60,
+    "object.id": 61,
+    "object.path": "alsa:pcm:0:front:0:capture:capture_1",
+    "object.serial": 157,
+    "port.alias": "ALC262 Analog:capture_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.name": "capture_FR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 89,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 49,
+    "object.id": 89,
+    "object.path": "alsa:pcm:3:front:3:capture:capture_0",
+    "object.serial": 158,
+    "port.alias": "HD Pro Webcam C920:capture_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "capture_FL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 87,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 49,
+    "object.id": 87,
+    "object.path": "alsa:pcm:3:front:3:capture:capture_1",
+    "object.serial": 159,
+    "port.alias": "HD Pro Webcam C920:capture_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.name": "capture_FR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 85,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 85,
+    "object.path": "alsa:pcm:1:surround40:1:playback:playback_0",
+    "object.serial": 160,
+    "port.alias": "ProFx:playback_FL",
+    "port.direction": "in",
+    "port.id": 0,
+    "port.name": "playback_FL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 83,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 83,
+    "object.path": "alsa:pcm:1:surround40:1:playback:monitor_0",
+    "object.serial": 161,
+    "port.alias": "ProFx:monitor_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.monitor": true,
+    "port.name": "monitor_FL"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 88,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 88,
+    "object.path": "alsa:pcm:1:surround40:1:playback:playback_1",
+    "object.serial": 162,
+    "port.alias": "ProFx:playback_FR",
+    "port.direction": "in",
+    "port.id": 1,
+    "port.name": "playback_FR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 95,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 95,
+    "object.path": "alsa:pcm:1:surround40:1:playback:monitor_1",
+    "object.serial": 163,
+    "port.alias": "ProFx:monitor_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.monitor": true,
+    "port.name": "monitor_FR"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 86,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 86,
+    "object.path": "alsa:pcm:1:surround40:1:playback:playback_2",
+    "object.serial": 164,
+    "port.alias": "ProFx:playback_RL",
+    "port.direction": "in",
+    "port.id": 2,
+    "port.name": "playback_RL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 94,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 94,
+    "object.path": "alsa:pcm:1:surround40:1:playback:monitor_2",
+    "object.serial": 165,
+    "port.alias": "ProFx:monitor_RL",
+    "port.direction": "out",
+    "port.id": 2,
+    "port.monitor": true,
+    "port.name": "monitor_RL"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 84,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "input",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 84,
+    "object.path": "alsa:pcm:1:surround40:1:playback:playback_3",
+    "object.serial": 166,
+    "port.alias": "ProFx:playback_RR",
+    "port.direction": "in",
+    "port.id": 3,
+    "port.name": "playback_RR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 93,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 75,
+    "object.id": 93,
+    "object.path": "alsa:pcm:1:surround40:1:playback:monitor_3",
+    "object.serial": 167,
+    "port.alias": "ProFx:monitor_RR",
+    "port.direction": "out",
+    "port.id": 3,
+    "port.monitor": true,
+    "port.name": "monitor_RR"
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 82,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 74,
+    "object.id": 82,
+    "object.path": "alsa:pcm:1:front:1:capture:capture_0",
+    "object.serial": 168,
+    "port.alias": "ProFx:capture_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "capture_FL",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 92,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 74,
+    "object.id": 92,
+    "object.path": "alsa:pcm:1:front:1:capture:capture_1",
+    "object.serial": 169,
+    "port.alias": "ProFx:capture_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.name": "capture_FR",
+    "port.physical": true,
+    "port.terminal": true
+   },
+   "params": {
+    "Format": []
+   }
+  }
+ },
+ {
+  "id": 79,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 36,
+    "object.id": 79,
+    "object.path": "rec-bus-abhoere-out:output_0",
+    "object.serial": 170,
+    "port.alias": "Rec-Bus Abhoere:output_FL",
+    "port.direction": "out",
+    "port.id": 0,
+    "port.name": "output_FL"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 78,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "FR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 36,
+    "object.id": 78,
+    "object.path": "rec-bus-abhoere-out:output_1",
+    "object.serial": 171,
+    "port.alias": "Rec-Bus Abhoere:output_FR",
+    "port.direction": "out",
+    "port.id": 1,
+    "port.name": "output_FR"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 69,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RL",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 36,
+    "object.id": 69,
+    "object.path": "rec-bus-abhoere-out:output_2",
+    "object.serial": 172,
+    "port.alias": "Rec-Bus Abhoere:output_RL",
+    "port.direction": "out",
+    "port.id": 2,
+    "port.name": "output_RL"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 68,
+  "type": "PipeWire:Interface:Port",
+  "info": {
+   "direction": "output",
+   "change-mask": [
+    "props",
+    "params"
+   ],
+   "props": {
+    "audio.channel": "RR",
+    "format.dsp": "32 bit float mono audio",
+    "node.id": 36,
+    "object.id": 68,
+    "object.path": "rec-bus-abhoere-out:output_3",
+    "object.serial": 173,
+    "port.alias": "Rec-Bus Abhoere:output_RR",
+    "port.direction": "out",
+    "port.id": 3,
+    "port.name": "output_RR"
+   },
+   "params": {
+    "Format": [
+     {
+      "mediaType": "audio",
+      "mediaSubtype": "dsp",
+      "format": "F32P"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": 62,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 36,
+   "output-port-id": 79,
+   "input-node-id": 75,
+   "input-port-id": 85,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 75,
+    "link.input.port": 85,
+    "link.output.node": 36,
+    "link.output.port": 79,
+    "link.passive": true,
+    "object.id": 62,
+    "object.serial": 174
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 91,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 36,
+   "output-port-id": 78,
+   "input-node-id": 75,
+   "input-port-id": 88,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 75,
+    "link.input.port": 88,
+    "link.output.node": 36,
+    "link.output.port": 78,
+    "link.passive": true,
+    "object.id": 91,
+    "object.serial": 175
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 90,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 36,
+   "output-port-id": 69,
+   "input-node-id": 75,
+   "input-port-id": 86,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 75,
+    "link.input.port": 86,
+    "link.output.node": 36,
+    "link.output.port": 69,
+    "link.passive": true,
+    "object.id": 90,
+    "object.serial": 176
+   },
+   "params": {}
+  }
+ },
+ {
+  "id": 50,
+  "type": "PipeWire:Interface:Link",
+  "info": {
+   "output-node-id": 36,
+   "output-port-id": 68,
+   "input-node-id": 75,
+   "input-port-id": 84,
+   "change-mask": [
+    "state",
+    "format",
+    "props"
+   ],
+   "state": "active",
+   "error": null,
+   "format": {
+    "mediaType": "audio",
+    "mediaSubtype": "dsp",
+    "format": "F32P"
+   },
+   "props": {
+    "client.id": 38,
+    "factory.id": 20,
+    "link.input.node": 75,
+    "link.input.port": 84,
+    "link.output.node": 36,
+    "link.output.port": 68,
+    "link.passive": true,
+    "object.id": 50,
+    "object.serial": 177
+   },
+   "params": {}
+  }
+ }
+]

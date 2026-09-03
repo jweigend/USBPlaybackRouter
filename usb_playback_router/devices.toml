@@ -1,0 +1,17 @@
+# Optional device knowledge. Provides names, labels and hints only — never the
+# routing mechanism. Unknown devices work generically with "USB 1/2", "USB 3/4", …
+#
+# match.vendor / match.product are matched as case-insensitive substrings of
+# PipeWire's device.vendor.name / device.product.name, match.name of device.name.
+
+[[devices]]
+name = "Mackie ProFXv3"
+match = { vendor = "Mackie", product = "ProFx" }
+
+[devices.labels]
+"1/2" = "USB 1/2 — Control Room / monitor"
+"3/4" = "USB 3/4 — stereo channel strip → Main Mix"
+
+[devices.hints]
+"1/2" = "Mute the USB return channel strip on the mixer."
+"3/4" = "The channel strip fader now controls desktop volume."
