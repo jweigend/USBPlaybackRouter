@@ -1,4 +1,6 @@
-# <img src="usb_playback_router/icon.svg" width="32" height="32" alt=""> USB Playback Router
+<p align="center"><img src="usb-playback-router-logo.svg" width="160" alt="USB Playback Router logo"></p>
+
+# USB Playback Router
 
 **Send Linux desktop audio to USB 1/2, 3/4, 5/6 … of a multichannel USB
 audio interface without opening a DAW or patch bay.**
