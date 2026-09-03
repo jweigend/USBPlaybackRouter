@@ -51,6 +51,15 @@ def backend(source=LB, device="alsa_card.usb-LOUD_Technologies_Inc._ProFx-00"):
     return RoutingBackend(cfg, DeviceDB())
 
 
+class ParsePositionsTest(unittest.TestCase):
+    def test_both_spellings(self):
+        from usb_playback_router.graph import parse_positions
+        self.assertEqual(parse_positions("FL,FR,RL,RR"), ["FL", "FR", "RL", "RR"])
+        self.assertEqual(parse_positions("[ RL RR ]"), ["RL", "RR"])
+        self.assertEqual(parse_positions(["AUX0", "AUX1"]), ["AUX0", "AUX1"])
+        self.assertEqual(parse_positions(None), [])
+
+
 class ParseDumpTest(unittest.TestCase):
     def test_concatenated_arrays_with_removal(self):
         from usb_playback_router.graph import parse_dump
@@ -81,6 +90,24 @@ class DiscoveryTest(unittest.TestCase):
     def test_auto_choice_prefers_multichannel_usb(self):
         g = Graph.from_objects(objects())
         self.assertEqual(choose_device(find_devices(g)).id, "alsa_card.usb-LOUD_Technologies_Inc._ProFx-00")
+
+    def test_auto_choice_never_falls_back_to_a_stereo_card(self):
+        objs = [o for o in objects() if not (o["type"].endswith("Node")
+                                              and o["info"]["props"].get("node.name") == PROFX)]
+        devs = find_devices(Graph.from_objects(objs))
+        self.assertTrue(devs)                      # the onboard card is still there …
+        self.assertIsNone(choose_device(devs))     # … but is not chosen automatically
+        self.assertIsNotNone(choose_device(devs, "alsa_card.pci-0000_00_1b.0"))
+
+    def test_auto_choice_is_pinned_for_the_process(self):
+        b = backend(device="")
+        self.assertEqual(b.read(Graph.from_objects(objects())).device.id,
+                         "alsa_card.usb-LOUD_Technologies_Inc._ProFx-00")
+        objs = [o for o in objects() if not (o["type"].endswith("Node")
+                                              and o["info"]["props"].get("node.name") == PROFX)]
+        st = b.read(Graph.from_objects(objs))
+        self.assertEqual(st.code, OFFLINE)
+        self.assertIn("ProFx", st.detail)
 
     def test_signal_ports_follow_negotiated_format(self):
         g = Graph.from_objects(objects())

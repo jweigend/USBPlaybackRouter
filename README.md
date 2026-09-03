@@ -12,10 +12,21 @@ Concept and design: [usb-playback-router-concept.md](usb-playback-router-concept
 
 ## Status
 
-Milestone 0. **Source mode** works and is verified on the reference setup
-(Mackie ProFX16v3 with a PipeWire loopback feeding the mixer): the tool
-replaces a device-specific predecessor one to one. **Session mode** (the tool
-creates the routing node itself) is the next milestone.
+Milestone 1. Two modes, same switching and state code:
+
+- **Session mode** (default, no configuration needed): the tool creates a
+  stereo routing sink with `pw-loopback`, makes it the default sink and links
+  it to the chosen hardware pair. The node lives as long as the tray; the
+  chosen pair is remembered per device and reapplied after a reconnect. The
+  previous default sink is restored on exit. Verified against a stereo card;
+  a test on a multichannel mixer is still open (the reference setup runs in
+  source mode).
+- **Source mode**: an existing loopback feeds the mixer and the tool only
+  relinks it. Verified on the reference setup (Mackie ProFX16v3 with
+  `50-rec-bus.conf`), where it replaced a device-specific predecessor.
+
+Not yet: persistence without the tray ("enable at login" drop-in), device
+picker for several multichannel interfaces.
 
 ## Requirements
 
@@ -30,11 +41,16 @@ only has to be running, any version.
 
 ## Configuration
 
+None is needed for session mode: the tool picks the USB interface with more
+than one stereo pair. A plain stereo card is never chosen automatically, so
+unplugging the mixer shows as offline instead of moving audio to the built-in
+card.
+
 `~/.config/usb-playback-router.conf`:
 
 ```ini
 [device]
-name = alsa_card.usb-LOUD_Technologies_Inc._ProFx-00   ; optional, auto-detected otherwise
+name = alsa_card.usb-LOUD_Technologies_Inc._ProFx-00   ; optional; forces a device, also a stereo one
 
 [source]
 node = rec-bus-abhoere-out     ; source mode: relink this node's outputs to the chosen pair
@@ -53,7 +69,9 @@ selected hardware pair. It never touches the default sink, never writes
 PipeWire configuration and never removes links of other clients (a DAW on
 pair 1/2 stays where it is).
 
-Without `[source]` the tool reports that session mode is not implemented yet.
+Without `[source]` the tool runs in session mode. `status` and `select` on the
+command line then need the tray running, because the tray owns the routing
+node.
 
 ## Usage
 
@@ -81,6 +99,7 @@ milliseconds via `pw-dump -m`.
 | `usb_playback_router/discovery.py` | device choice, stereo pairs by port order, signal ports |
 | `usb_playback_router/backend.py` | derived state, switching, diagnostics |
 | `usb_playback_router/config.py`, `devices.toml` | user config, device labels and hints |
+| `usb_playback_router/session.py`, `state.py` | session mode: `pw-loopback` node, default sink, remembered pair |
 | `usb_playback_router/monitor.py` | `pw-dump -m` change trigger |
 | `usb_playback_router/tray.py`, `cli.py` | UI |
 | `tests/` | unit tests against a real `pw-dump` of the reference setup |

@@ -1,4 +1,5 @@
 """Tray icon and menu (GTK 3; XApp.StatusIcon on Cinnamon, AppIndicator elsewhere)."""
+import signal
 import sys
 
 import gi
@@ -11,6 +12,7 @@ from . import icons
 from .backend import AMBIGUOUS, NONE, PAIR
 from .monitor import GraphMonitor
 from .notify import notify
+from .session import SessionController
 
 
 def _status_icon(menu):
@@ -70,6 +72,9 @@ class Tray:
         self.menu.show_all()
 
         self.set_icon, self._holder = _status_icon(self.menu)
+        self.session = SessionController(backend) if backend.config.mode == "session" else None
+        if self.session is not None:
+            self.session.start()
         self.refresh(force=True)
         self.monitor = GraphMonitor(self.refresh)
 
@@ -105,6 +110,8 @@ class Tray:
 
     def refresh(self, force=False):
         st = self.backend.read()
+        if self.session is not None and self.session.observe(st):
+            st = self.backend.read()
         keys = tuple(p.key for p in st.device.pairs) if st.device else ()
         if keys != self.pair_keys:
             self.pair_keys = keys
@@ -168,5 +175,11 @@ class Tray:
 
     def run(self):
         GLib.set_prgname(APP_ID)
-        Gtk.main()
-        self.monitor.stop()
+        for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGHUP):
+            GLib.unix_signal_add(GLib.PRIORITY_HIGH, sig, lambda *_: Gtk.main_quit() or True)
+        try:
+            Gtk.main()
+        finally:
+            self.monitor.stop()
+            if self.session is not None:
+                self.session.stop()

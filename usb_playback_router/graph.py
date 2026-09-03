@@ -52,10 +52,7 @@ class Node:
 
     @property
     def declared_positions(self):
-        pos = self.props.get("audio.position")
-        if isinstance(pos, str):
-            return [x.strip() for x in pos.split(",") if x.strip()]
-        return list(pos or [])
+        return parse_positions(self.props.get("audio.position"))
 
 
 @dataclass
@@ -78,6 +75,16 @@ class Device:
     @property
     def description(self):
         return self.props.get("device.description") or self.props.get("device.nick") or self.name
+
+
+def parse_positions(value):
+    """audio.position as a list. pw-dump shows it as "FL,FR,RL,RR" for ALSA
+    nodes and as the SPA array string "[ FL FR ]" for stream nodes."""
+    if not value:
+        return []
+    if isinstance(value, (list, tuple)):
+        return [str(x) for x in value]
+    return [x for x in str(value).strip("[] ").replace(",", " ").split() if x]
 
 
 def parse_dump(text):

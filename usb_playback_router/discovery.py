@@ -82,8 +82,10 @@ def find_devices(graph):
 
 def choose_device(devices, wanted=None):
     """Pick the device to manage. `wanted` matches device.name or node.name,
-    exactly or as substring. Without it: the USB device with the most
-    playback channels, preferring ones with more than one pair."""
+    exactly or as substring. Without it, only a device with more than one
+    stereo pair qualifies (USB preferred): a plain stereo card is never chosen
+    automatically, so unplugging the mixer reads as offline instead of
+    silently moving desktop audio to the built-in card."""
     if wanted:
         for d in devices:
             if wanted in (d.id, d.node.name):
@@ -92,14 +94,9 @@ def choose_device(devices, wanted=None):
             if wanted in d.id or wanted in d.node.name or wanted in d.name:
                 return d
         return None
-    usb = [d for d in devices if d.bus == "usb"]
-    for pool in (usb, devices):
-        multi = [d for d in pool if len(d.pairs) > 1]
-        if multi:
-            return multi[0]
-        if pool:
-            return pool[0]
-    return None
+    multi = [d for d in devices if len(d.pairs) > 1]
+    usb = [d for d in multi if d.bus == "usb"]
+    return (usb or multi or [None])[0]
 
 
 def signal_ports(node):

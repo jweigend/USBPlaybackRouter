@@ -6,15 +6,18 @@ signal-carrying outputs to the selected hardware pair. It never touches the
 default sink, never writes configuration and never removes links of other
 clients.
 
-Session mode (milestone 1): the backend creates the source node itself.
+Session mode: the source node is the playback side of the router's own
+loopback (see session.py); switching and state derivation are the same.
 """
 import subprocess
 from dataclasses import dataclass
 
 from . import __version__
+from . import state as state_file
 from .config import Config, DeviceDB, Labels
 from .discovery import choose_device, find_devices, signal_ports
 from .graph import Graph
+from .session import OUT_NAME
 
 OFFLINE = "offline"          # device not present, or PipeWire not running
 NO_SOURCE = "no-source"      # device present, source node missing
@@ -47,9 +50,14 @@ class RoutingBackend:
     def __init__(self, config=None, db=None):
         self.config = config or Config.load()
         self.db = db or DeviceDB()
+        self.pinned = None      # auto-chosen device id, kept for the process lifetime
 
     def labels(self, device):
         return Labels(self.config, self.db, device)
+
+    @property
+    def source_node_name(self):
+        return self.config.source_node if self.config.mode == "source" else OUT_NAME
 
     # ------------------------------------------------------------ state
 
@@ -57,16 +65,20 @@ class RoutingBackend:
         graph = graph or Graph.read()
         if not graph.alive:
             return Status(OFFLINE, graph, detail="PipeWire is not running")
-        device = choose_device(find_devices(graph), self.config.device or None)
+        wanted = self.config.device or self.pinned
+        device = choose_device(find_devices(graph), wanted)
         if device is None:
-            return Status(OFFLINE, graph, detail="audio device not connected")
-        if self.config.mode != "source":
-            return Status(NO_SOURCE, graph, device,
-                          detail="session mode is not implemented yet; configure [source] node")
-        source = graph.node_by_name(self.config.source_node)
+            detail = f"'{wanted}' not connected" if wanted else "no multichannel USB audio device found"
+            return Status(OFFLINE, graph, detail=detail)
+        if not self.config.device:
+            self.pinned = device.id
+        source = graph.node_by_name(self.source_node_name)
         if source is None:
-            return Status(NO_SOURCE, graph, device,
-                          detail=f"source node '{self.config.source_node}' not found")
+            if self.config.mode == "source":
+                detail = f"source node '{self.source_node_name}' not found"
+            else:
+                detail = "routing node not running — start the tray"
+            return Status(NO_SOURCE, graph, device, detail=detail)
         signal = signal_ports(source)
         if signal is None:
             return Status(NO_SOURCE, graph, device, source,
@@ -100,7 +112,7 @@ class RoutingBackend:
         if not st.pipewire:
             return "PipeWire is not running"
         if st.code == OFFLINE:
-            return "USB audio device not connected"
+            return f"USB audio device not connected ({st.detail})" if st.detail else "USB audio device not connected"
         if st.code == NO_SOURCE:
             return f"{lab.device_name(st.device)}: {st.detail}"
         if st.code == PAIR:
@@ -111,8 +123,10 @@ class RoutingBackend:
 
     # ------------------------------------------------------------ switching
 
-    def select_pair(self, key):
-        """Switch to pair `key` (e.g. "3/4"). Returns (ok, message)."""
+    def select_pair(self, key, remember=True):
+        """Switch to pair `key` (e.g. "3/4"). Returns (ok, message).
+        In session mode the choice is remembered per device so the node can be
+        recreated on the same pair after a reconnect."""
         st = self.read()
         if not st.ready:
             return False, self.headline(st)
@@ -135,6 +149,8 @@ class RoutingBackend:
         after = self.read()
         lab = self.labels(after.device)
         if after.code == PAIR and after.pair.key == key:
+            if remember and self.config.mode == "session":
+                state_file.save(st.device.id, key)
             hint = lab.hint(pair)
             return True, f"Desktop audio → {lab.label(pair)}." + (f" {hint}" if hint else "")
         return False, f"switched, but the graph now reads: {self.headline(after)}"
