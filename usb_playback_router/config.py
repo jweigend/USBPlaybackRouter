@@ -18,12 +18,12 @@ import configparser
 import os
 import tomllib
 from dataclasses import dataclass, field
+from importlib import resources
 
 from . import APP_ID
 
 DEFAULT_PATH = os.path.join(os.environ.get("XDG_CONFIG_HOME", os.path.expanduser("~/.config")),
                             f"{APP_ID}.conf")
-DEVICE_DB = os.path.join(os.path.dirname(__file__), "devices.toml")
 
 
 @dataclass
@@ -55,11 +55,18 @@ class Config:
 
 
 class DeviceDB:
-    def __init__(self, path=DEVICE_DB):
+    """devices.toml shipped with the package, or a file given as `path`.
+    Read as a package resource so it also works from a zipapp."""
+
+    def __init__(self, path=None):
         try:
-            with open(path, "rb") as f:
-                self.entries = tomllib.load(f).get("devices", [])
-        except (OSError, tomllib.TOMLDecodeError):
+            if path:
+                with open(path, "rb") as f:
+                    data = f.read()
+            else:
+                data = resources.files(__package__).joinpath("devices.toml").read_bytes()
+            self.entries = tomllib.loads(data.decode("utf-8")).get("devices", [])
+        except (OSError, UnicodeDecodeError, tomllib.TOMLDecodeError):
             self.entries = []
 
     def lookup(self, device):

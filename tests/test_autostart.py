@@ -35,7 +35,7 @@ class AutostartTest(unittest.TestCase):
             text = f.read()
         self.assertIn("Exec=/opt/checkout/usb-playback-router\n", text)
         self.assertIn("X-GNOME-Autostart-enabled=true", text)
-        self.assertIn("Icon=" + autostart.ICON, text)
+        self.assertIn("Icon=" + autostart.icon_path(), text)
         with open(autostart.APP_MENU, encoding="utf-8") as f:
             self.assertNotIn("Autostart", f.read())
         self.assertFalse(autostart.set_enabled(False))
@@ -45,7 +45,10 @@ class AutostartTest(unittest.TestCase):
         self.assertFalse(os.path.exists(autostart.APP_MENU))
 
     def test_icon_is_shipped_with_the_package(self):
-        self.assertTrue(os.path.exists(autostart.ICON))
+        path = autostart.icon_path()
+        self.assertTrue(os.path.exists(path))
+        with open(path, "rb") as f:
+            self.assertIn(b"<svg", f.read())
 
 
 class ReapOrphansTest(unittest.TestCase):

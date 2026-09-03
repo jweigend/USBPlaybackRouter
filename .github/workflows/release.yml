@@ -1,0 +1,28 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+permissions:
+  contents: write
+jobs:
+  pyz:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m unittest discover -s tests
+      - run: ./build.sh
+      - name: smoke test
+        run: |
+          cd /tmp
+          "$GITHUB_WORKSPACE"/dist/usb-playback-router-*.pyz --help
+          "$GITHUB_WORKSPACE"/dist/usb-playback-router-*.pyz check || true   # no PipeWire on the runner
+      - name: attach to the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          gh release view "$tag" >/dev/null 2>&1 || gh release create "$tag" --title "USB Playback Router ${tag#v}" --notes-from-tag
+          gh release upload "$tag" dist/usb-playback-router-*.pyz --clobber
