@@ -286,8 +286,9 @@ For development, `pw-dump` is particularly useful because it exposes the
 PipeWire object graph as structured JSON, including nodes, ports, links
 and the negotiated stream format.
 
-The production implementation should use an API rather than parse
-human-readable `wpctl status` output. See section 17.
+The implementation uses only the machine-readable tools shipped with
+PipeWire itself (`pw-dump`, `pw-link`, `pw-metadata`, `pw-loopback`) and
+never parses human-readable `wpctl status` output. See section 17.
 
 ------------------------------------------------------------------------
 
@@ -411,8 +412,11 @@ Every state has a distinct tray icon. `ambiguous` and `none` show a
 warning icon and a headline that tells the user to pick a pair; the pair
 selection stays enabled. `offline` disables the selection.
 
-The graph is re-read on every PipeWire change event (preferred) or by
-polling every few seconds (prototype).
+The graph is re-read whenever `pw-dump -m` reports a change. That
+command streams every added, changed or removed object as JSON on
+stdout, so the same parser serves the initial dump and the updates, and
+no polling and no library binding is needed. Polling every few seconds
+remains a fallback if the monitor process dies.
 
 ### Switching to a pair
 
@@ -448,7 +452,9 @@ a repair action for pinned streams.
 
 After a switch, a desktop notification shows the new pair and, if the
 device database has one, the hint for the mixer (for example "mute the
-USB return channel strip").
+USB return channel strip"). The notification is sent over D-Bus
+(`org.freedesktop.Notifications`) from the GLib bindings already in use,
+so no `notify-send` binary is required.
 
 ------------------------------------------------------------------------
 
@@ -465,9 +471,9 @@ and the user chooses between them.
 ### Session mode (default for a first try)
 
 The application owns the mapping node. It is created when the
-application starts, for example by running `pw-loopback` as a child
-process or by loading the loopback module in-process, and disappears
-when the application exits.
+application starts by running `pw-loopback` as a child process with the
+capture side declared as `media.class = Audio/Sink`, and disappears when
+the application exits.
 
 ``` text
 Application starts
@@ -518,8 +524,12 @@ the application only has to verify and, if necessary, repair.
 
 ## 12. WirePlumber
 
-WirePlumber is used, not extended. No custom session policy or Lua
-script is planned.
+WirePlumber is used, not extended, and it is **not a dependency**. The
+application talks to PipeWire only. The default sink is the metadata key
+`default.configured.audio.sink`, written with `pw-metadata`; WirePlumber
+honours it, and so does `pipewire-media-session` on older systems. The
+WirePlumber version (0.4 or 0.5/1.0) is therefore irrelevant to the
+application. No custom session policy or Lua script is planned.
 
 What WirePlumber already provides for free:
 
@@ -583,6 +593,10 @@ usb-playback-router pairs         # list detected pairs
 usb-playback-router diag          # print diagnostic information (section 14)
 ```
 
+A small configuration file (`~/.config/usb-playback-router.conf`) holds
+the chosen device and, for source mode (section 17), the name of the
+source node.
+
 Only one tray instance runs at a time (lock file in `$XDG_RUNTIME_DIR`),
 so autostart and a manual start do not duplicate the icon.
 
@@ -641,6 +655,8 @@ The first public version should support:
 -   devices with 2 or more playback channels
 -   discovery of the active profile and the playback ports
 -   consecutive stereo pairs by port index
+-   source mode as a drop-in replacement for the existing Mackie tool
+    (milestone 0, verified on the reference setup)
 -   mapping node in session mode
 -   state derived from the graph, including the warning states
 -   switching default desktop playback
@@ -716,29 +732,70 @@ class RoutingBackend:
 The tray code should know nothing about Mackie, port names or PipeWire
 commands.
 
-### Existing chains as source
+### Source mode: an existing chain as source
 
-The mapping node does not have to be created by the application. If a
-user already has a virtual sink feeding the hardware node (as in the
-current Rec-Bus setup, where other tools such as a DAW or a delay tool
-depend on that sink being the default), the backend can be pointed at
-that node as the **source** and only relinks its outputs to the selected
-hardware pair. This is the mode the existing Mackie tool implements; the
-generic tool must keep it, otherwise it would replace such setups instead
-of controlling them.
+The mapping node does not have to be created by the application. Many
+setups already have a virtual sink feeding the hardware node, with other
+tools depending on that sink being the default: in the reference setup
+`rec-bus` is the default sink, a DAW records its monitor, a delay tool
+(JamPilot) temporarily takes over the default and hands audio back to
+`rec-bus`, and a loopback `rec-bus-abhoere-out` carries the audio to the
+mixer. The existing Mackie tool switches exactly that loopback.
 
-### PipeWire access
+In **source mode** the backend is pointed at such a node and only relinks
+its outputs to the selected hardware pair. Four rules apply, and they are
+what keeps such setups intact:
 
--   **Prototype:** `pw-dump` for reading the graph, `pw-link` for
-    creating and deleting links, `wpctl set-default` for the default
-    sink, `pw-loopback` as a child process for the mapping node.
-    Polling every two seconds is acceptable here.
--   **Production:** the WirePlumber client library via GObject
-    introspection (`gi.repository.Wp`). It gives nodes, ports, links,
-    the default sink and change events from the same GLib main loop the
-    GTK tray already uses, so no polling and no subprocess parsing. There
-    is no maintained Python binding for `libpipewire` itself; `Wp` is
-    the practical API for a Python/GTK application.
+1.  **The source node is configured, never guessed.** Other clients (a
+    DAW, for example) are usually linked to the same hardware ports.
+    Auto-detection could pick the wrong node.
+2.  **The default sink is never touched.** No `set-default`, no
+    "repair". The chain that makes the source node the audible path is
+    somebody else's business.
+3.  **No drop-in is written.** "Enable at login" is hidden; persistence
+    is already provided by the configuration that created the source
+    node.
+4.  **State is derived from the links of the source node only,** not
+    from everything linked into the hardware node. Otherwise a DAW on
+    pair 1/2 plus the source on pair 3/4 would read as `ambiguous`.
+    Links of other clients are never removed.
+
+Session mode (section 11) is the generalisation of source mode: the
+application creates the source node itself. The switching and state code
+is the same in both modes.
+
+### PipeWire only: tooling and dependencies
+
+The backend needs nothing beyond the tools that ship with PipeWire in
+the `pipewire-bin` package (`pipewire-tools` on some distributions).
+No library binding to `libpipewire` or `libwireplumber`, no Python
+packages from pip.
+
+  Task                                     Tool                       Package
+  ---------------------------------------- -------------------------- --------------
+  read the graph (nodes, ports, links,     `pw-dump`                  pipewire-bin
+  negotiated format)
+  follow changes without polling           `pw-dump -m`               pipewire-bin
+  create and remove links                  `pw-link`                  pipewire-bin
+  read and set the default sink            `pw-metadata`              pipewire-bin
+  mapping node in session mode             `pw-loopback` (child)      pipewire-bin
+
+`wpctl` is not used.
+
+Runtime dependencies of the whole application:
+
+  Component            Dependency                                  Notes
+  -------------------- ------------------------------------------- ----------------------------------
+  backend              `pipewire-bin`                              present on every PipeWire system
+  UI                   Python 3, `python3-gi`, `gir1.2-gtk-3.0`    preinstalled on GNOME-family desktops
+  tray backend         `gir1.2-xapp-1.0` or                        detected at runtime, one of them
+                       `gir1.2-ayatanaappindicator3-0.1`
+  notifications        D-Bus via Gio                               no extra package
+
+A later option is to speak the StatusNotifierItem D-Bus protocol
+directly from Gio, which would remove the tray backend packages as well
+(about 150 lines; works on KDE, Cinnamon and GNOME with the usual
+extension). Not planned for the first version.
 
 ------------------------------------------------------------------------
 
