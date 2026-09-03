@@ -46,7 +46,11 @@ PipeWire 1.0.5 and WirePlumber 0.4.17 on Linux Mint 22.
 
 ## Installation
 
-Single file, no checkout: download `usb-playback-router-<version>.pyz` from
+Three ways, all without root. Each ends with `usb-playback-router` in
+`~/.local/bin`; if that directory did not exist before, it is added to your
+`PATH` at the next login, until then use the full path.
+
+**Single file (.pyz):** download `usb-playback-router-<version>.pyz` from
 the [releases](https://github.com/jweigend/USBPlaybackRouter/releases). It
 is a Python zipapp that runs with the system Python and needs the packages
 listed above (`check` names the missing ones).
@@ -55,20 +59,20 @@ listed above (`check` names the missing ones).
 chmod +x usb-playback-router-*.pyz
 ./usb-playback-router-*.pyz check          # system packages present?
 mkdir -p ~/.local/bin && mv usb-playback-router-*.pyz ~/.local/bin/usb-playback-router
-usb-playback-router autostart on           # tray at login + application-menu entry
-usb-playback-router &
+~/.local/bin/usb-playback-router autostart on   # tray at login + application-menu entry
+~/.local/bin/usb-playback-router &
 ```
 
 `./build.sh` produces the same file from a checkout into `dist/`.
 
-From a checkout:
+**From a checkout:**
 
 ```bash
 ./install.sh          # checks the packages, symlinks into ~/.local/bin, enables autostart
 usb-playback-router & # start it now
 ```
 
-Without a checkout:
+**With pipx:**
 
 ```bash
 pipx install git+https://github.com/jweigend/USBPlaybackRouter

@@ -1,7 +1,11 @@
 # Changelog
 
-## Unreleased
+## 0.1.1 — 2026-09-03
 
+- Single-file executable: `build.sh` packs the package into
+  `usb-playback-router-<version>.pyz` (Python zipapp), attached to every
+  GitHub release. Package data is read via `importlib.resources`.
+- Logo PNG and tray-menu screenshot for the README and SourceForge.
 - Session mode: a remembered pair is verified once after the routing node
   starts, not on every graph change. A duplicated controller in `session.py`
   had reapplied it every two seconds and reverted manual `pw-link` work.
