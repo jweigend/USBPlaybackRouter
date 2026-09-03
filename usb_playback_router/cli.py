@@ -15,6 +15,9 @@ usage: {APP_ID} [command]
   select PAIR       switch desktop audio to PAIR, e.g. "3/4"
   pairs             list the detected stereo pairs of the managed device
   diag              print diagnostic information for bug reports
+  autostart on|off  start the tray at login (also adds an application-menu entry)
+  autostart status
+  uninstall         remove the autostart and application-menu entries
   -h | --help       this text
 
 configuration: ~/.config/{APP_ID}.conf  (see README)
@@ -64,11 +67,32 @@ def main(argv=None):
         print(backend.diag())
         return 0
 
+    if cmd == "autostart":
+        from . import autostart
+        arg = argv[1] if len(argv) > 1 else "status"
+        if arg in ("on", "off"):
+            autostart.set_enabled(arg == "on")
+        elif arg != "status":
+            print("autostart: on, off or status", file=sys.stderr)
+            return 2
+        print("autostart: " + ("on" if autostart.enabled() else "off"))
+        return 0
+
+    if cmd == "uninstall":
+        from . import autostart
+        autostart.remove_all()
+        print("removed autostart and application-menu entries")
+        return 0
+
     if cmd == "tray":
         if _single_instance() is None:
             print(f"{APP_ID} is already running.", file=sys.stderr)
             return 0
-        from .tray import Tray
+        try:
+            from .tray import Tray
+        except SystemExit as e:
+            print(e, file=sys.stderr)
+            return 1
         Tray(backend).run()
         return 0
 

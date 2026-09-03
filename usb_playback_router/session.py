@@ -11,6 +11,8 @@ Default sink handling: the sink becomes default.configured.audio.sink while
 the application runs; the previous value is restored on exit.
 """
 import json
+import os
+import signal
 import subprocess
 import time
 
@@ -50,6 +52,31 @@ def loopback_command(hw_node_name, positions=("FL", "FR"), description=SINK_DESC
             "--playback-props", _spa(playback)]
 
 
+def reap_orphans(timeout=3.0):
+    """Kill pw-loopback processes of this user left behind by a crashed
+    instance (they are children of the tray and survive a SIGKILL of it),
+    then wait until their nodes are gone. Returns the number killed."""
+    try:
+        out = subprocess.run(["pgrep", "-u", str(os.getuid()), "-f", f"^pw-loopback -g {APP_ID}( |$)"],
+                             capture_output=True, text=True, timeout=5).stdout
+    except (OSError, subprocess.SubprocessError):
+        return 0
+    pids = [int(x) for x in out.split() if x.isdigit() and int(x) != os.getpid()]
+    for pid in pids:
+        try:
+            os.kill(pid, signal.SIGTERM)
+        except OSError:
+            pass
+    if pids:
+        deadline = time.monotonic() + timeout
+        while time.monotonic() < deadline:
+            g = Graph.read()
+            if g.alive and g.node_by_name(OUT_NAME) is None and g.node_by_name(SINK_NAME) is None:
+                break
+            time.sleep(0.1)
+    return len(pids)
+
+
 class LoopbackNode:
     def __init__(self):
         self.proc = None
@@ -58,6 +85,7 @@ class LoopbackNode:
 
     def start(self, hw_node_name, positions):
         self.stop()
+        reap_orphans()
         try:
             self.proc = subprocess.Popen(loopback_command(hw_node_name, positions),
                                          stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)

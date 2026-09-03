@@ -4,11 +4,15 @@ import sys
 
 import gi
 
-gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk, GLib  # noqa: E402
+try:
+    gi.require_version("Gtk", "3.0")
+    from gi.repository import Gtk, GLib
+except (ValueError, ImportError) as e:
+    raise SystemExit(f"{e}\nGTK 3 bindings are missing: install python3-gi and gir1.2-gtk-3.0 "
+                     f"(the command line works without them).")
 
-from . import APP_ID, __version__
-from . import icons
+from . import APP_ID, __version__  # noqa: E402
+from . import autostart, icons  # noqa: E402
 from .backend import AMBIGUOUS, NONE, PAIR
 from .monitor import GraphMonitor
 from .notify import notify
@@ -33,8 +37,12 @@ def _status_icon(menu):
             icon.set_tooltip_text(text)
         return set_icon, icon
 
-    gi.require_version("AyatanaAppIndicator3", "0.1")
-    from gi.repository import AyatanaAppIndicator3 as AppIndicator3
+    try:
+        gi.require_version("AyatanaAppIndicator3", "0.1")
+        from gi.repository import AyatanaAppIndicator3 as AppIndicator3
+    except (ValueError, ImportError):
+        raise SystemExit("No tray backend found: install gir1.2-xapp-1.0 (Cinnamon) or "
+                         "gir1.2-ayatanaappindicator3-0.1 (other desktops).")
     ind = AppIndicator3.Indicator.new(APP_ID, icons.icon_name(icons.offline_icon()),
                                       AppIndicator3.IndicatorCategory.HARDWARE)
     ind.set_icon_theme_path(icons.icon_dir())
@@ -62,6 +70,10 @@ class Tray:
         self.menu.append(Gtk.SeparatorMenuItem())
         self.pair_anchor = len(self.menu.get_children())   # pair items are inserted here
         self.menu.append(Gtk.SeparatorMenuItem())
+        self.autostart_item = Gtk.CheckMenuItem(label="Start at login")
+        self.autostart_item.set_active(autostart.enabled())
+        self.autostart_item.connect("toggled", self._autostart_toggled)
+        self.menu.append(self.autostart_item)
         for label, cb in (("Refresh now", lambda *_: self.refresh(force=True)),
                           ("Device information…", lambda *_: self.show_diag()),
                           (f"About {APP_ID} {__version__}", lambda *_: self.show_about()),
@@ -95,6 +107,10 @@ class Tray:
             self.menu.insert(item, self.pair_anchor + pos)
             self.radio[pair.key] = item
         self.menu.show_all()
+
+    def _autostart_toggled(self, item):
+        if item.get_active() != autostart.enabled():
+            autostart.set_enabled(item.get_active())
 
     def _chosen(self, item, key):
         if self.lock or not item.get_active():

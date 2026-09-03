@@ -1,4 +1,4 @@
-# <img src="icons/usb-playback-router.svg" width="32" height="32" alt=""> USB Playback Router
+# <img src="usb_playback_router/icon.svg" width="32" height="32" alt=""> USB Playback Router
 
 **Send Linux desktop audio to USB 1/2, 3/4, 5/6 … of a multichannel USB
 audio interface without opening a DAW or patch bay.**
@@ -25,19 +25,33 @@ Milestone 1. Two modes, same switching and state code:
   relinks it. Verified on the reference setup (Mackie ProFX16v3 with
   `50-rec-bus.conf`), where it replaced a device-specific predecessor.
 
-Not yet: persistence without the tray ("enable at login" drop-in), device
-picker for several multichannel interfaces.
+Not yet: routing without the tray running (a generated PipeWire drop-in),
+device picker for several multichannel interfaces.
 
 ## Requirements
 
 | | |
 |---|---|
-| backend | `pipewire-bin` (`pw-dump`, `pw-link`, `pw-loopback`, `pw-metadata`) |
+| backend | `pipewire-bin` (`pw-dump`, `pw-link`, `pw-loopback`, `pw-metadata`), PipeWire ≥ 0.3.60 |
 | UI | Python ≥ 3.11, `python3-gi`, `gir1.2-gtk-3.0` |
 | tray | `gir1.2-xapp-1.0` (Cinnamon) or `gir1.2-ayatanaappindicator3-0.1` |
 
 No pip packages, no library binding to PipeWire or WirePlumber. WirePlumber
-only has to be running, any version.
+(or pipewire-media-session) only has to be running, any version. Tested with
+PipeWire 1.0.5 and WirePlumber 0.4.17 on Linux Mint 22.
+
+## Installation
+
+```bash
+sudo apt install pipewire-bin python3-gi gir1.2-gtk-3.0 gir1.2-ayatanaappindicator3-0.1
+pipx install git+https://github.com/jweigend/USBPlaybackRouter
+usb-playback-router autostart on      # tray at login + application-menu entry
+usb-playback-router &                 # start it now
+```
+
+`pipx` must see the system GTK bindings; if the tray complains about
+missing `gi`, use `pipx install --system-site-packages …`. From a checkout,
+`./install.sh` does the same with a symlink instead of pipx.
 
 ## Configuration
 
@@ -81,8 +95,8 @@ node.
 ./usb-playback-router select 3/4
 ./usb-playback-router pairs
 ./usb-playback-router diag          # for bug reports
-./install.sh                        # symlink into ~/.local/bin + autostart entry
-./install.sh remove
+./usb-playback-router autostart on|off|status
+./usb-playback-router uninstall     # remove the desktop entries
 ```
 
 The icon shows the selected pair (`3·4`), a red `!` when the source is linked
@@ -109,7 +123,7 @@ milliseconds via `pw-dump -m`.
 | `usb_playback_router/config.py`, `devices.toml` | user config, device labels and hints |
 | `usb_playback_router/session.py`, `state.py` | session mode: `pw-loopback` node, default sink, remembered pair |
 | `usb_playback_router/monitor.py` | `pw-dump -m` change trigger |
-| `usb_playback_router/tray.py`, `cli.py` | UI |
+| `usb_playback_router/tray.py`, `cli.py`, `autostart.py` | UI, command line, desktop entries |
 | `tests/` | unit tests against a real `pw-dump` of the reference setup |
 
 ```bash
